@@ -12,9 +12,9 @@ Alunos:
 
 #include "func.h"
 #include "arquivo.h"
-#include "tad.h"
 
 int main (void)
 {
+	printf("Hello, World!\n");
 	return 0;
 }

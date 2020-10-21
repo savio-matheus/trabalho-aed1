@@ -3,11 +3,14 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "tad.h"
 
-// Vetor
+// Structs
 
-// Fila
+// Vetor genérico
 
-// Lista duplamente encadeada
+// Lista duplamente encadeada genérica
+
+// Fila genérica

@@ -6,9 +6,6 @@
 #include <stdio.h>
 
 #include "arquivo.h"
+#include "func.h"
 #include "tad.h"
 
-int main (void)
-{
-	return 0;
-}
