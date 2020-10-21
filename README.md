@@ -1,10 +1,33 @@
 # Trabalho em Grupo - AED 1
 ## Funcionalidades
-- [ ] Cadastrar Pacientes;
-- [ ] Cadastrar Profissionais;
-- [ ] Cadastrar Administrador do Sistema;
-- [ ] Registrar clínicas;
-- [ ] Agendar consultas;
-- [ ] Cancelar consultas;
-- [ ] Registrar diagnósticos/receitas;
-- [ ] Consultar diagnósticos/receitas.
+- Sistema de login
+  - Paciente
+    - [ ] Cadastrar
+    - [ ] Editar
+    - [ ] Remover
+    - [ ] Acesso ao CRUD Consultas
+  - Profissional de Saúde
+    - [ ] Cadastrar
+    - [ ] Editar
+    - [ ] Remover
+    - [ ] Acesso ao CRUD Consultas
+  - Administrador
+    - [ ] Cadastrar usuários
+    - [ ] Listar usuários
+    - [ ] Editar usuários
+    - [ ] Remover usuários
+    - [ ] Acesso ao CRUD Clínicas
+    - [ ] Acesso parcial ao CRUD Consultas
+- CRUD Clínicas
+  - [ ] Inserir
+  - [ ] Listar
+  - [ ] Editar
+  - [ ] Remover
+- CRUD Consultas (pré-consulta e diagnósticos/receitas)
+  - [ ] Inserir
+  - [ ] Listar
+  - [ ] Editar
+  - [ ] Remover
+- Arquivo em disco
+  - [ ] Operação de salvar
+  - [ ] Operação de abrir
