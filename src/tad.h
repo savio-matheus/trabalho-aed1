@@ -1,9 +1,7 @@
 #ifndef TAD_H
 #define TAD_H
 
-typedef struct vetor *Vetor;
-typedef struct lista *Lista;
-typedef struct fila *Fila;
+// Typedefs
 
 // Funções de vetor
 
