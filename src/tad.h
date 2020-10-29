@@ -3,10 +3,8 @@
 
 // Typedefs
 
-// Funções de vetor
+// Funções da lista encadeada
 
-// Funções de lista duplamente encadeada
-
-// Funções de fila
+// Funções da fila (baseada na lista)
 
 #endif /* TAD_H */
