@@ -25,8 +25,8 @@ typedef struct
 {
     int chave;
     int dado; // dado e uma informacao qualquer do paciente, aqui utilizei para ordenar a lista de pacientes
-        // foi utilizado para localizar onde inserir um novo paciente ordenado
-        // a ordenacao pode ocorrer por outro valor: chave, nome
+              // foi utilizado para localizar onde inserir um novo paciente ordenado
+              // a ordenacao pode ocorrer por outro valor: chave, nome
     char nome[40];
 
 } PACIENTE;
