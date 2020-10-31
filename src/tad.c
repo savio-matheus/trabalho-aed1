@@ -9,8 +9,6 @@
 
 // Structs
 
-// Vetor genérico
+// Lista encadeada
 
-// Lista duplamente encadeada genérica
-
-// Fila genérica
+// Fila encadeada
