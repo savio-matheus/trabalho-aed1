@@ -5,13 +5,12 @@
 #define true 1
 
 /**
- * criei este tipo para se parecer com um boolean 
+ * criei este tipo para simular  um tipo boolean 
  * utilizado na função com retorno int 
  * e utilizar as define false e true 
  * */
 
 typedef int boolean;
-//typedef int TIPOCHAVE;
 
 /** 
  *  struct para armazenar os dados de um paciente
