@@ -29,6 +29,9 @@ int validaCpf (char[] cpf){
         return 1;
     }
 
+    //sucesso
+    return 0;
+
 }
 
 
