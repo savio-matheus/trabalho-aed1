@@ -11,8 +11,8 @@
 #include "tad.h"
 #include "func.h"
 
-int validaCpf (char[] cpf){
-    int tamanho = sizeof(cpf);
+int validaCpf (char cpf[], int dim){
+    int tamanho = dim;
 
     //Validando tamanho do vetor enviado (11 caracteres caso sejam armazenados apenas numeros ou 14 caso seja armazenada a pontuacao)
     if(tamanho == 11){
