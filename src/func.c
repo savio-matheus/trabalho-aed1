@@ -34,4 +34,20 @@ int validaCpf (char[] cpf){
 
 }
 
+void cadastrarPaciente()
+{}
 
+void editarPaciente()
+{}
+
+void listarPacientes()
+{}
+
+void removerPaciente()
+{}
+
+void carregarArquivo()
+{}
+
+void salvarArquivo()
+{}
