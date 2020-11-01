@@ -62,6 +62,7 @@ int tamanho(LISTAPACIENTES *lst)
 		tam++;
 		end = end->prox;
 	}
+	return tam;
 }
 /* Para exibir a lista de pacientes: aqui por enquanto a chave, o dado e o nome do paciente */
 void exibirListaPacientes(LISTAPACIENTES *lst)
@@ -115,7 +116,7 @@ PONT buscaSequencialExc(LISTAPACIENTES *lst, int d, PONT *ant)
 */
 boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente)
 {
-	int ch = paciente.chave;
+	//int ch = paciente.chave; (não utilizada)
 	int d = paciente.dado;
 	PONT ant, i;
 	i = buscaSequencialExc(lst, d, &ant);
@@ -163,6 +164,7 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, int ch)
 	else
 		ant->prox = i->prox;
 	free(i);
+	return true;
 }
 
 int main()
@@ -175,7 +177,7 @@ int main()
 	{
 		p.chave = i;
 		scanf("%d", &p.dado);
-		scanf("%s", &p.nome);
+		scanf("%s", p.nome);
 		inserirPacienteListaOrdenada(lst, p);
 	}
 
