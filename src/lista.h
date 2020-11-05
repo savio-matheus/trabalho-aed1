@@ -63,6 +63,8 @@ PONT buscaSequencialOrdenada(LISTAPACIENTES *lst, int ch);
 
 PONT buscaSequencialExc(LISTAPACIENTES *lst, int d, PONT *ant);
 
+void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente);
+
 boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente);
 
 void reinicializarLista(LISTAPACIENTES *lst);

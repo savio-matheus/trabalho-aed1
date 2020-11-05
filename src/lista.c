@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "lista.h"
 
@@ -87,8 +86,8 @@ boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente)
 	if (i != NULL)
 		return false;
 	i = (PONT)malloc(sizeof(REGISTRO));
-	//i->p = paciente;
-	memcpy(&i->p, &paciente, sizeof(paciente));
+	i->p = paciente;
+	//memcpy(&i->p, &paciente, sizeof(paciente));
 	if (ant == NULL)
 	{
 		i->prox = lst->inicio;
@@ -135,13 +134,38 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, int d)
 void excluirLista(LISTAPACIENTES **lst)
 {
 	if (*lst == NULL) {
-		printf(u8"Lista não inicializada\n");
 		return;
 	}
 	reinicializarLista(*lst);
 	free(*lst);
 	*lst = NULL;
-	printf(u8"Lista excluída!\n");
+	printf("Lista excluida!\n");
+}
+
+/*
+* Insere novo paciente ao final da lista (deve estar inicializada),
+* sem checar por dados repetidos.
+*/
+void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente)
+{
+	PONT temp = NULL;
+
+	if (lst->inicio == NULL)
+	{
+		lst->inicio = (PONT) malloc(sizeof(REGISTRO));
+		lst->inicio->prox = NULL;
+		lst->inicio->p = paciente;
+		return;
+	}
+
+	temp = lst->inicio;
+	while (temp->prox != NULL)
+		temp = temp->prox;
+
+	temp->prox = (PONT) malloc(sizeof(REGISTRO));
+	temp = temp->prox;
+	temp->p = paciente;
+	temp->prox = NULL;
 }
 
 /* Testes */
@@ -156,8 +180,8 @@ int main(void)
 	for (i = 1; i <= 5; i++)
 	{
 		p.chave = i;
-		scanf("%d", &p.dado);
-		scanf("%s", p.nome);
+		scanf(" %d", &p.dado);
+		scanf(" %s", p.nome);
 		inserirPacienteListaOrdenada(lst, p);
 	}
 
