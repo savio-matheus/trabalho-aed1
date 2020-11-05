@@ -70,7 +70,7 @@ void exibirListaPacientes(LISTAPACIENTES *lst)
 	PONT end = lst->inicio;
 	while (end != NULL)
 	{
-		printf("%i        %d       %s\n", end->p.chave, end->p.dado, end->p.nome);
+		printf("%-10i %-10d %-10s\n", end->p.chave, end->p.dado, end->p.nome);
 		end = end->prox;
 	}
 }
