@@ -1,56 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
-#define false 0
-#define true 1
+#include <string.h>
 
-/**
- * criei este tipo para simular  um tipo boolean 
- * utilizado na função com retorno int 
- * e utilizar as define false e true 
- * */
+#include "lista.h"
 
-typedef int boolean;
-
-/** 
- *  struct para armazenar os dados de um paciente
- *  chave é o dado principal do paciente (identificador do paciente)
- *  será usado para procuarar um paciente
- *  aqui pode ser criado outros dados
- *  pode inserir uma nova struct, ENDERECO por exemplo
- * */
-
-typedef struct
-{
-	int chave;
-	int dado; // dado e uma informacao qualquer do paciente, aqui utilizei para ordenar a lista de pacientes
-			  // foi utilizado para localizar onde inserir um novo paciente ordenado
-			  // a ordenacao pode ocorrer por outro valor: chave, nome
-	char nome[40];
-
-} PACIENTE;
-
-/* essa struct aux contem um registro de um paciente
-   e um ponteiro *prox que servirá para percorrer uma lista de pacientes
- */
-typedef struct aux
-{
-	PACIENTE p;
-	struct aux *prox;
-} REGISTRO;
-
-/* PONT é um ponteiro para o inicio da lista */
-typedef REGISTRO *PONT;
-
-typedef struct
-{
-	PONT inicio;
-} LISTAPACIENTES;
 /* Inicializa a lista atribuindo NULL para o inicio da lista, ou seja, uma lista sem elementos */
-void inicializarLista(LISTAPACIENTES *lst)
+LISTAPACIENTES *inicializarLista(void)
 {
-	printf("Lista Criada!\n");
+	LISTAPACIENTES *lst = (LISTAPACIENTES *) malloc(sizeof(*lst));
 	lst->inicio = NULL;
+	printf("Lista Criada!\n");
+	return lst;
 }
 /* para mostrar o tamanho da lista */
 int tamanho(LISTAPACIENTES *lst)
@@ -82,15 +42,19 @@ PONT buscaSequencial(LISTAPACIENTES *lst, int ch)
 	{
 		if (pos->p.chave == ch)
 			return pos;
+		pos = pos->prox;
 	}
 	return NULL;
 }
 
-PONT buscaSeqencialOrdenada(LISTAPACIENTES *lst, int ch)
+PONT buscaSequencialOrdenada(LISTAPACIENTES *lst, int ch)
 {
 	PONT pos = lst->inicio;
-	while (pos != NULL && pos->p.chave == ch)
-		return pos;
+	while (pos != NULL) {
+		if (pos->p.chave == ch)
+			return pos;
+		pos = pos->prox;
+	}
 
 	return NULL;
 }
@@ -123,7 +87,8 @@ boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente)
 	if (i != NULL)
 		return false;
 	i = (PONT)malloc(sizeof(REGISTRO));
-	i->p = paciente;
+	//i->p = paciente;
+	memcpy(&i->p, &paciente, sizeof(paciente));
 	if (ant == NULL)
 	{
 		i->prox = lst->inicio;
@@ -153,10 +118,10 @@ void reinicializarLista(LISTAPACIENTES *lst)
 /* exclui um paciente da lista e libera memoria
 * primeiro procura na lista se o paciente existe
 */
-boolean excluirPacienteLista(LISTAPACIENTES *lst, int ch)
+boolean excluirPacienteLista(LISTAPACIENTES *lst, int d)
 {
 	PONT ant, i;
-	i = buscaSequencialExc(lst, ch, &ant);
+	i = buscaSequencialExc(lst, d, &ant);
 	if (i == NULL)
 		return false;
 	if (ant == NULL)
@@ -167,12 +132,27 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, int ch)
 	return true;
 }
 
-int main()
+void excluirLista(LISTAPACIENTES **lst)
+{
+	if (*lst == NULL) {
+		printf(u8"Lista não inicializada\n");
+		return;
+	}
+	reinicializarLista(*lst);
+	free(*lst);
+	*lst = NULL;
+	printf(u8"Lista excluída!\n");
+}
+
+/* Testes */
+int main(void)
 {
 	LISTAPACIENTES *lst;
-	inicializarLista(lst);
 	PACIENTE p;
 	int i;
+
+	lst = inicializarLista();
+
 	for (i = 1; i <= 5; i++)
 	{
 		p.chave = i;
@@ -183,8 +163,20 @@ int main()
 
 	printf("\nchave      dado       paciente\n");
 	exibirListaPacientes(lst);
+	scanf(" %d", &i);
+	printf("excluirPacienteLista(): %d\n", excluirPacienteLista(lst, i));
+	for (i = 1; i <= 5; i++)
+	{
+		PONT j = buscaSequencial(lst, i);
+		if (j == NULL) continue;
+		printf("%d %d %s\n", j->p.chave, j->p.dado, j->p.nome);
+	}
+	i = tamanho(lst);
 	reinicializarLista(lst);
+	printf("tam: %d; addr: %p\n", i, lst->inicio);
 	exibirListaPacientes(lst);
+	excluirLista(&lst);
+	excluirLista(&lst);
 
 	return 0;
 }
