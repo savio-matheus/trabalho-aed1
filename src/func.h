@@ -4,7 +4,7 @@
 // Typedefs
 
 // Funções expostas para o main.c. Elas devem chamar outras funções dentro de func.c
-void cadastrarPaciente();
+Paciente* cadastrarPaciente();
 void editarPaciente();
 void listarPacientes();
 void removerPaciente();

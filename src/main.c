@@ -11,10 +11,49 @@ Alunos:
 #include <stdio.h>
 
 #include "func.h"
-#include "arquivo.h"
+#include "lista.h"
+
+int painel(){
+    int opcao;
+    printf("*******************************************\n");
+    printf("** 1 - Cadastrar paciente                **\n");
+    printf("** 2 - Pesquisar paciente                **\n");
+    printf("** 3 - Atualizar paciente                **\n");
+    printf("** 4 - Excluir paciente                  **\n");
+    printf("** 0 - SAIR                              **\n");
+    printf("*******************************************\n");
+
+    printf("ESCOLHA: ");
+    scanf("%d", &opcao);
+    return opcao;
+}
+
 
 int main (void)
 {
-	printf("Hello, World!\n");
+	int opcao = -1;
+
+	while(opcao != 0){
+
+		opcao = painel;
+		switch (opcao)
+		{
+		case 1:
+			// Cadastrar paciente
+			break;
+		case 2:
+			// Pesquisar paciente
+			break;
+		case 3:
+			// Atualizar paciente
+			break;
+		case 4:
+			// Excluir paciente
+			break;
+		}
+
+	}
+
+
 	return 0;
 }
