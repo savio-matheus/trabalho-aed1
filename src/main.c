@@ -1,11 +1,10 @@
 /*
 Projeto de Algoritmos e Estruturas de Dados I - 2020/1 (SI)
 Professor: Edmundo Sérgio Spoto
-Alunos:
-	.
-	.
-	.
-	Sávio Matheus de Sousa
+Alunos: Cláudio da Silva Pinheiro Júnior
+        Delvo Resende
+        Gleidimar Luiz
+        Sávio Matheus de Sousa
 */
 
 #include <stdio.h>
