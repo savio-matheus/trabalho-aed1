@@ -11,30 +11,6 @@
 #include "tad.h"
 #include "func.h"
 
-typedef struct{
-	char rua[30];
-	char bairro[30];
-	char cidade[30];
-	char estado[30];
-} Endereco;
-
-typedef struct{
-	char email[30];
-    char telefone[30];
-} Contato;
-
-typedef struct{
-	char nome[30];
-    char dataDeNascimento[30];
-    char sexo[30];
-    char CPF[16];
-	float peso;
-	float altura;
-    Endereco endereco;
-	Contato contato;
-} Paciente;
-
-
 int validaCpf (char cpf[], int dim){
     int tamanho = dim;
 
@@ -55,9 +31,9 @@ int validaCpf (char cpf[], int dim){
 }
 
 // cadastrarPaciente cria um Paciente e o retorna
-Paciente* cadastrarPaciente(){
+PACIENTE* cadastrarPaciente(){
 
-    Paciente *paciente = (Paciente*)malloc(sizeof(Paciente));
+    PACIENTE *paciente = (PACIENTE*)malloc(sizeof(PACIENTE));
     char *tmp = (char*)malloc(sizeof(char)*30);
 
 	printf("\nInforme o nome do paciente: ");
@@ -92,7 +68,7 @@ Paciente* cadastrarPaciente(){
 }
 
 // toString recebe uma struct Paciente e a imprime 
-void toString(Paciente *paciente){
+void toString(PACIENTE *paciente){
 
     printf("\nNome do paciente: %s", paciente->nome);
     printf("Data de nascimento: %s", paciente->dataDeNascimento);
