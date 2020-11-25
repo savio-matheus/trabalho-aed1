@@ -27,6 +27,9 @@ typedef struct paciente
 	int dado; // dado e uma informacao qualquer do paciente, aqui utilizei para ordenar a lista de pacientes
 			  // foi utilizado para localizar onde inserir um novo paciente ordenado
 			  // a ordenacao pode ocorrer por outro valor: chave, nome
+	char cpf[11];
+	char endereco[150]; //Utilizando apenas uma string para definir o endereco do paciente, pode ser substituido no futuro por uma struct contendo os dados separadamente.
+	char telefone[11]; //Telefone com padrao de 11 digitos, sendo ddd + telefone com 9 digitos).
 	char nome[40];
 
 } PACIENTE;

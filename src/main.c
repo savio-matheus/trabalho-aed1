@@ -38,7 +38,19 @@ int main (void)
 		switch (opcao)
 		{
 		case 1:
-			// Cadastrar paciente
+		PACIENTE newPaciente;
+			printf("CPF: ");
+			scanf("%s", &newPaciente.cpf);
+			printf("Nome Completo: ");
+			scanf("%s", &newPaciente.nome);
+			printf("Telefone: ");
+			scanf("%s", &newPaciente.telefone);
+			printf("Endereco: ");
+			scanf("%s", &newPaciente.endereco);
+
+			//Apenas deixando metodo de insercao anotado, sera necessario definir algumas informacoes como: Iremos utilizar o CPF indicado como a chave?
+			inserirPaciente(new LISTAPACIENTES, newPaciente);
+
 			break;
 		case 2:
 			// Pesquisar paciente
