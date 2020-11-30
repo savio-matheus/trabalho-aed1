@@ -13,6 +13,22 @@ Alunos: Cláudio da Silva Pinheiro Júnior
 
 #include "tad.h"
 
+/*
+ * No CMD (Windows), o comando de limpar o terminal é "cls", enquanto
+ * em outros terminais utiliza-se "clear". O trecho abaixo compila
+ * condicionalmente a função limparTela() de acordo com o sistema operacional.
+ * O Powershell (Windows) aceita os dois comandos.
+ */
+void limparTela(void)
+{
+ #if defined (__MINGW32__) || defined(_MSC_VER) // Windows
+    system("cls");
+ #else // Linux e Unix em geral
+    system("clear");
+ #endif
+}
+
+
 //Valida dados informados antes de efetivar o cadastro do paciente.
 int validaPaciente(PACIENTE *paciente){
 
