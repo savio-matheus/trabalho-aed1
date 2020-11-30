@@ -11,21 +11,21 @@ typedef struct{
 	char rua[30];
 	char bairro[30];
 	char cidade[30];
-	char estado[2];
+	char estado[30];
 } Endereco;
 
 typedef struct{
 	char email[30];
-    char telefone[11];
+    char telefone[30];
 } Contato;
 
 typedef struct paciente {
 	char nome[40];
 	int chave; // apenas para funcionar no código da lista (por enquanto)
 	int dado;  // idem
-	char dataDeNascimento[10];
-	char sexo;
-	char CPF[11];
+	char dataDeNascimento[30];
+	char sexo[30];
+	char CPF[16];
 	float peso;
 	float altura;
 	Endereco endereco;
