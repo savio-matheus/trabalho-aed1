@@ -9,6 +9,7 @@ Alunos: Cláudio da Silva Pinheiro Júnior
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "tad.h"
 
@@ -117,23 +118,11 @@ int main (void)
 
 	while(opcao != 0){
 
-		opcao = painel;
+		opcao = painel();
 		switch (opcao)
 		{
 		case 1:
-		PACIENTE newPaciente;
-			printf("CPF: ");
-			scanf("%s", &newPaciente.cpf);
-			printf("Nome Completo: ");
-			scanf("%s", &newPaciente.nome);
-			printf("Telefone: ");
-			scanf("%s", &newPaciente.telefone);
-			printf("Endereco: ");
-			scanf("%s", &newPaciente.endereco);
-
-			//Apenas deixando metodo de insercao anotado, sera necessario definir algumas informacoes como: Iremos utilizar o CPF indicado como a chave?
-			inserirPaciente(new LISTAPACIENTES, newPaciente);
-
+            // Inserir paciente
 			break;
 		case 2:
 			// Pesquisar paciente
