@@ -13,21 +13,37 @@ Alunos: Cláudio da Silva Pinheiro Júnior
 
 #include "tad.h"
 
-int validaCpf (char cpf[], int dim){
-    int tamanho = dim;
+//Valida dados informados antes de efetivar o cadastro do paciente.
+int validaPaciente(PACIENTE *paciente){
 
-    //Validando tamanho do vetor enviado (11 caracteres caso sejam armazenados apenas numeros ou 14 caso seja armazenada a pontuacao)
-    if(tamanho == 11){
+
+    //CPF
         int i;
         //Validando se apenas numeros foram digitados
         for(i = 0; i<=tamanho; i++){
-            if(!isdigit(cpf[i])){
+            if(!isdigit(paciente->CPF[i])){
                 return 1;
             }
         }
-    }else{
-        return 1;
+
+    //Sexo
+        if(paciente->sexo != 'M' && paciente->sexo != 'F'){
+            return 2;
+        }
+
+    //Data de nascimento
+    int dataNascInt[3];
+    if ( sscanf(paciente->dataDeNascimento, "%d/%d/%d", &dataNascInt[0], &dataNascInt[1], &dataNascInt[2]) == 3 ){
+    
+     if ( (dataNascInt[0] > 0 && dataNascInt[0] < 32) && (dataNascInt[1] > 0 && dataNascInt[1] < 13) && (dataNascInt[2] > 1900 && dataNascInt[2] < 2100 ) ){
+        
+     } else {
+        return 3;
     }
+} else {
+    return 3;
+}
+
     //sucesso
     return 0;
 }
@@ -42,7 +58,7 @@ PACIENTE* cadastrarPaciente(){
     fflush(stdin);
     fgets(paciente->nome, sizeof(paciente->nome), stdin);
 
-    printf("Informe a data de nascimento: ");
+    printf("Informe a data de nascimento (formato dd/mm/yyyy): ");
     fflush(stdin);
 	fgets(paciente->dataDeNascimento, sizeof(paciente->dataDeNascimento), stdin);
 
@@ -50,7 +66,7 @@ PACIENTE* cadastrarPaciente(){
     fflush(stdin);
 	fgets(paciente->sexo, sizeof(paciente->sexo), stdin);
 
-	printf("Informe o CPF do paciente: ");
+	printf("Informe o CPF do paciente (apenas numeros): ");
     fflush(stdin);
 	fgets(paciente->CPF, sizeof(paciente->CPF), stdin);
 
@@ -59,7 +75,7 @@ PACIENTE* cadastrarPaciente(){
     fgets(tmp, sizeof(tmp), stdin);
     paciente->peso = strtof(tmp, NULL);
 
-	printf("Informe a altura do paciente: ");
+	printf("Informe a altura do paciente (em centimetros): ");
     fflush(stdin);
     fgets(tmp, sizeof(char *), stdin);
     paciente->altura = strtof(tmp, NULL);
