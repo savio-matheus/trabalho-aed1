@@ -117,8 +117,14 @@ void toString(PACIENTE *paciente){
 void editarPaciente()
 {}
 
-void listarPacientes()
-{}
+void listarPacientes(LISTAPACIENTES *lista)
+{
+    PACIENTE *temp;
+
+    while (temp = retornaProximoPaciente(lista), temp != NULL) {
+        toString(temp);
+    }
+}
 
 void removerPaciente()
 {}
@@ -135,7 +141,8 @@ int painel(){
     printf("** 1 - Cadastrar paciente                **\n");
     printf("** 2 - Pesquisar paciente                **\n");
     printf("** 3 - Atualizar paciente                **\n");
-    printf("** 4 - Excluir paciente                  **\n");
+    printf("** 4 - Listar pacientes                  **\n");
+    printf("** 5 - Excluir paciente                  **\n");
     printf("** 0 - SAIR                              **\n");
     printf("*******************************************\n");
 
@@ -164,8 +171,11 @@ int main (void)
 			// Atualizar paciente
 			break;
 		case 4:
-			// Excluir paciente
+			// Listar pacientes
 			break;
+        case 5:
+            // Excluir paciente
+            break;
 		}
 
 	}
