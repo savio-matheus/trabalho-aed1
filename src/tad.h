@@ -7,18 +7,6 @@ typedef enum boolean {
 	true = 1
 } boolean;
 
-typedef struct{
-	char rua[30];
-	char bairro[30];
-	char cidade[30];
-	char estado[2];
-} Endereco;
-
-typedef struct{
-	char email[30];
-    char telefone[11];
-} Contato;
-
 typedef struct paciente {
 	char nome[40];
 	int chave; // apenas para funcionar no código da lista (por enquanto)
@@ -28,8 +16,16 @@ typedef struct paciente {
 	char CPF[11];
 	float peso;
 	float altura;
-	Endereco endereco;
-	Contato contato;
+
+	// Endereço
+	char rua[30];
+	char bairro[30];
+	char cidade[30];
+	char estado[2];
+
+	// Contato
+	char email[30];
+	char telefone[11];
 } PACIENTE;
 
 typedef struct registro
@@ -56,11 +52,9 @@ size_t tamanho(LISTAPACIENTES *lst);
 
 void exibirListaPacientes(LISTAPACIENTES *lst);
 
-PONT buscaSequencial(LISTAPACIENTES *lst, int ch);
+PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst);
 
-PONT buscaSequencialOrdenada(LISTAPACIENTES *lst, int ch);
-
-PONT buscaSequencialExc(LISTAPACIENTES *lst, int d, PONT *ant);
+PACIENTE *buscaSequencial(LISTAPACIENTES *lst, int ch);
 
 void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente);
 

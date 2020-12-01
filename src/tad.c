@@ -36,27 +36,36 @@ void exibirListaPacientes(LISTAPACIENTES *lst)
 	}
 }
 
-PONT buscaSequencial(LISTAPACIENTES *lst, int ch)
+/*
+ * Desde que mantida a mesma lista de pacientes, a função retorna o próximo
+ * paciente a cada chamada (um por vez), até chegar ao final da
+ * lista (retornar NULL).
+ * Assume que o último nó sempre aponta para NULL.
+*/
+PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst)
+{
+	static PONT atual = NULL;
+	static LISTAPACIENTES *tmp = NULL;
+
+	if (lst == tmp && atual != NULL) {
+		atual = atual->prox;
+		return &atual->p;
+	}
+
+	tmp = lst;
+	atual = tmp->inicio;
+	return &atual->p;
+}
+
+PACIENTE *buscaSequencial(LISTAPACIENTES *lst, int ch)
 {
 	PONT pos = lst->inicio;
 	while (pos != NULL)
 	{
 		if (pos->p.chave == ch)
-			return pos;
+			return &(pos->p);
 		pos = pos->prox;
 	}
-	return NULL;
-}
-
-PONT buscaSequencialOrdenada(LISTAPACIENTES *lst, int ch)
-{
-	PONT pos = lst->inicio;
-	while (pos != NULL) {
-		if (pos->p.chave == ch)
-			return pos;
-		pos = pos->prox;
-	}
-
 	return NULL;
 }
 
@@ -66,7 +75,7 @@ PONT buscaSequencialOrdenada(LISTAPACIENTES *lst, int ch)
 *  precisa implementar um retorno informando que aquela chave (ou paciente)
 *  ja esta cadastrado.
 */
-PONT buscaSequencialExc(LISTAPACIENTES *lst, int d, PONT *ant)
+static PONT buscaSequencialExc(LISTAPACIENTES *lst, int d, PONT *ant)
 {
 	*ant = NULL;
 	PONT atual = lst->inicio;
