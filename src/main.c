@@ -36,7 +36,8 @@ int validaPaciente(PACIENTE *paciente){
     //CPF
         int i;
         //Validando se apenas numeros foram digitados
-        for(i = 0; i<=tamanho; i++){
+        // número mágico: 11. Indica o compr. do campo CPF
+        for(i = 0; i<=11; i++){
             if(!isdigit(paciente->CPF[i])){
                 return 1;
             }
@@ -106,7 +107,7 @@ void toString(PACIENTE *paciente){
 
     printf("\nNome do paciente: %s", paciente->nome);
     printf("Data de nascimento: %s", paciente->dataDeNascimento);
-    printf("Sexo do paciente (M/F): %s", paciente->sexo);
+    printf("Sexo do paciente (M/F): %c", paciente->sexo);
     printf("CPF do paciente: %s", paciente->CPF);
     printf("Peso do paciente: %.2f", paciente->peso);
     printf("\nAltura do paciente: %.2f", paciente->altura);
