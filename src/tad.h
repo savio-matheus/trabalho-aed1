@@ -43,6 +43,7 @@ typedef REGISTRO *PONT;
 typedef struct lst_pacientes
 {
 	PONT inicio;
+	size_t n; // tamanho da lista
 } LISTAPACIENTES;
 
 // typedefs da fila
@@ -51,7 +52,7 @@ typedef struct lst_pacientes
 
 LISTAPACIENTES *inicializarLista(void);
 
-int tamanho(LISTAPACIENTES *lst);
+size_t tamanho(LISTAPACIENTES *lst);
 
 void exibirListaPacientes(LISTAPACIENTES *lst);
 

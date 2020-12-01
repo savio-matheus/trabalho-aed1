@@ -15,20 +15,14 @@ LISTAPACIENTES *inicializarLista(void)
 {
 	LISTAPACIENTES *lst = (LISTAPACIENTES *) malloc(sizeof(*lst));
 	lst->inicio = NULL;
+	lst->n = 0;
 	printf("Lista Criada!\n");
 	return lst;
 }
 /* para mostrar o tamanho da lista */
-int tamanho(LISTAPACIENTES *lst)
+size_t tamanho(LISTAPACIENTES *lst)
 {
-	PONT end = lst->inicio;
-	int tam = 0;
-	while (end != NULL)
-	{
-		tam++;
-		end = end->prox;
-	}
-	return tam;
+	return lst->n;
 }
 /* Para exibir a lista de pacientes: aqui por enquanto a chave, o dado e o
 nome do paciente */
@@ -111,6 +105,7 @@ boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente)
 		i->prox = ant->prox;
 		ant->prox = i;
 	}
+	lst->n++;
 	return true;
 }
 
@@ -125,6 +120,7 @@ void reinicializarLista(LISTAPACIENTES *lst)
 		free(apagar);
 	}
 	lst->inicio = NULL;
+	lst->n = 0;
 	printf("\nLISTA VAZIA\n");
 }
 /* exclui um paciente da lista e libera memoria
@@ -141,6 +137,7 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, int d)
 	else
 		ant->prox = i->prox;
 	free(i);
+	lst->n--;
 	return true;
 }
 
@@ -172,6 +169,7 @@ void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente)
 		lst->inicio = (PONT) malloc(sizeof(REGISTRO));
 		lst->inicio->prox = NULL;
 		lst->inicio->p = paciente;
+		lst->n++;
 		return;
 	}
 
@@ -183,6 +181,8 @@ void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente)
 	temp = temp->prox;
 	temp->p = paciente;
 	temp->prox = NULL;
+	lst->n++;
+	return;
 }
 
 
