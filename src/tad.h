@@ -8,24 +8,24 @@ typedef enum boolean {
 } boolean;
 
 typedef struct paciente {
-	char nome[40];
+	char nome[64];
 	int chave; // apenas para funcionar no código da lista (por enquanto)
 	int dado;  // idem
-	char dataDeNascimento[10];
+	char dataDeNascimento[11];
 	char sexo;
-	char CPF[11];
-	float peso;
-	float altura;
+	char CPF[15]; // Considerando o pior caso: "XXX.XXX.XXX-XX"
+	char peso[5];
+	char altura[5];
 
 	// Endereço
-	char rua[30];
-	char bairro[30];
-	char cidade[30];
-	char estado[2];
+	char rua[64];
+	char bairro[64];
+	char cidade[64];
+	char estado[3];
 
 	// Contato
-	char email[30];
-	char telefone[11];
+	char email[64];
+	char telefone[21]; // considerando o pior caso: "+55 (XX) X XXXX-XXXX"
 } PACIENTE;
 
 typedef struct registro

@@ -90,12 +90,10 @@ PACIENTE* cadastrarPaciente(){
 	printf("Informe o peso do paciente: ");
     fflush(stdin);
     fgets(tmp, sizeof(tmp), stdin);
-    paciente->peso = strtof(tmp, NULL);
 
 	printf("Informe a altura do paciente (em centimetros): ");
     fflush(stdin);
     fgets(tmp, sizeof(char *), stdin);
-    paciente->altura = strtof(tmp, NULL);
 
     free(tmp);
 	return paciente;
@@ -109,8 +107,8 @@ void toString(PACIENTE *paciente){
     printf("Data de nascimento: %s", paciente->dataDeNascimento);
     printf("Sexo do paciente (M/F): %c", paciente->sexo);
     printf("CPF do paciente: %s", paciente->CPF);
-    printf("Peso do paciente: %.2f", paciente->peso);
-    printf("\nAltura do paciente: %.2f", paciente->altura);
+    printf("Peso do paciente: %s", paciente->peso);
+    printf("\nAltura do paciente: %s", paciente->altura);
 
 }
 
