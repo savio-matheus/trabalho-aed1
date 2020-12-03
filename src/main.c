@@ -10,6 +10,7 @@ Alunos: Cláudio da Silva Pinheiro Júnior
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 #include "tad.h"
 
@@ -28,6 +29,48 @@ void limparTela(void)
  #endif
 }
 
+/*
+ * Recebe "tamanho_str" caracteres do teclado e armazena em "dest".
+ * Combina as funções de fgets() e getchar() sem deixar restos na stdin
+ * ou risco de overflow. Se tamanho_str > 1, será adicionado '\0' ao final
+ * da string.
+ *
+ * Caso seja chamada como entradaUsuario(NULL, 0) após um getchar()
+ * ou scanf(), adquire a mesma funcionalidade do fflush().
+*/
+char *entradaUsuario(char *dest, size_t tamanho_str)
+{
+	const float FATOR_AUMENTO = 1.5;
+	int c;
+
+    // Buffer que cresce indefinidamente até a quebra de linha.
+	char *buf = malloc(sizeof(char) * 2);
+	size_t buf_usado = 0;
+	size_t buf_tamanho = 2;
+	
+	do {
+		c = getchar();
+		if (buf_usado + 1 >= buf_tamanho) {
+			buf_tamanho *= FATOR_AUMENTO;
+			buf = realloc(buf, sizeof(char) * buf_tamanho);
+		}
+		buf_usado++;
+		buf[buf_usado - 1] = c;
+	} while (c != '\n' && c != EOF);
+
+	if (tamanho_str == 1 && dest != NULL) {
+		dest[0] = buf[0];
+	} else if (buf_usado <= tamanho_str && dest != NULL) {
+		buf[buf_usado - 1] = '\0';
+		strncpy(dest, buf, buf_usado);
+	} else if (dest != NULL) {
+		buf[tamanho_str] = '\0';
+		strncpy(dest, buf, tamanho_str);
+	}
+	
+	free(buf);
+    return dest;
+}
 
 //Valida dados informados antes de efetivar o cadastro do paciente.
 int validaPaciente(PACIENTE *paciente){
@@ -72,28 +115,22 @@ PACIENTE* cadastrarPaciente(){
     char *tmp = (char*)malloc(sizeof(char)*30);
 
 	printf("\nInforme o nome do paciente: ");
-    fflush(stdin);
-    fgets(paciente->nome, sizeof(paciente->nome), stdin);
+    entradaUsuario(paciente->nome, sizeof(paciente->nome));
 
     printf("Informe a data de nascimento (formato dd/mm/yyyy): ");
-    fflush(stdin);
-	fgets(paciente->dataDeNascimento, sizeof(paciente->dataDeNascimento), stdin);
+	entradaUsuario(paciente->dataDeNascimento, sizeof(paciente->dataDeNascimento));
 
 	printf("Informe o sexo do paciente (M/F): ");
-    fflush(stdin);
-	fgets(paciente->sexo, sizeof(paciente->sexo), stdin);
+	entradaUsuario(&paciente->sexo, sizeof(paciente->sexo));
 
 	printf("Informe o CPF do paciente (apenas numeros): ");
-    fflush(stdin);
-	fgets(paciente->CPF, sizeof(paciente->CPF), stdin);
+	entradaUsuario(paciente->CPF, sizeof(paciente->CPF));
 
 	printf("Informe o peso do paciente: ");
-    fflush(stdin);
-    fgets(tmp, sizeof(tmp), stdin);
+    entradaUsuario(paciente->peso, sizeof(paciente->peso));
 
 	printf("Informe a altura do paciente (em centimetros): ");
-    fflush(stdin);
-    fgets(tmp, sizeof(char *), stdin);
+	entradaUsuario(paciente->altura, sizeof(paciente->altura));
 
     free(tmp);
 	return paciente;
@@ -134,7 +171,7 @@ void salvarArquivo()
 {}
 
 int painel(){
-    int opcao;
+    char opcao;
     printf("*******************************************\n");
     printf("** 1 - Cadastrar paciente                **\n");
     printf("** 2 - Pesquisar paciente                **\n");
@@ -145,33 +182,34 @@ int painel(){
     printf("*******************************************\n");
 
     printf("ESCOLHA: ");
-    scanf("%d", &opcao);
+
+    entradaUsuario(&opcao, 1);
     return opcao;
 }
 
 
 int main (void)
 {
-	int opcao = -1;
+	char opcao = -1;
 
 	while(opcao != 0){
 
 		opcao = painel();
 		switch (opcao)
 		{
-		case 1:
+		case '1':cadastrarPaciente();
             // Inserir paciente
 			break;
-		case 2:
+		case '2':
 			// Pesquisar paciente
 			break;
-		case 3:
+		case '3':
 			// Atualizar paciente
 			break;
-		case 4:
+		case '4':
 			// Listar pacientes
 			break;
-        case 5:
+        case '5':
             // Excluir paciente
             break;
 		}
