@@ -15,10 +15,7 @@ Alunos: Cláudio da Silva Pinheiro Júnior
 #include "tad.h"
 
 /*
- * No CMD (Windows), o comando de limpar o terminal é "cls", enquanto
- * em outros terminais utiliza-se "clear". O trecho abaixo compila
- * condicionalmente a função limparTela() de acordo com o sistema operacional.
- * O Powershell (Windows) aceita os dois comandos.
+ * Determina o comando de limpar o terminal de acordo com o SO.
  */
 void limparTela(void)
 {
@@ -31,10 +28,7 @@ void limparTela(void)
 
 /*
  * Recebe "tamanho_str" caracteres do teclado e armazena em "dest".
- * Combina as funções de fgets() e getchar() sem deixar restos na stdin
- * ou risco de overflow. Se tamanho_str > 1, será adicionado '\0' ao final
- * da string.
- *
+ * Se tamanho_str > 1, será adicionado '\0' ao final da string.
  * Caso seja chamada como entradaUsuario(NULL, 0) após um getchar()
  * ou scanf(), adquire a mesma funcionalidade do fflush().
 */
@@ -64,7 +58,7 @@ char *entradaUsuario(char *dest, size_t tamanho_str)
 		buf[buf_usado - 1] = '\0';
 		strncpy(dest, buf, buf_usado);
 	} else if (dest != NULL) {
-		buf[tamanho_str] = '\0';
+		buf[tamanho_str - 1] = '\0';
 		strncpy(dest, buf, tamanho_str);
 	}
 	
@@ -109,30 +103,28 @@ int validaPaciente(PACIENTE *paciente){
 }
 
 // cadastrarPaciente cria um Paciente e o retorna
-PACIENTE* cadastrarPaciente(){
+PACIENTE cadastrarPaciente(){
 
-    PACIENTE *paciente = (PACIENTE*)malloc(sizeof(PACIENTE));
-    char *tmp = (char*)malloc(sizeof(char)*30);
+    PACIENTE paciente;
 
 	printf("\nInforme o nome do paciente: ");
-    entradaUsuario(paciente->nome, sizeof(paciente->nome));
+    entradaUsuario(paciente.nome, sizeof(paciente.nome));
 
     printf("Informe a data de nascimento (formato dd/mm/yyyy): ");
-	entradaUsuario(paciente->dataDeNascimento, sizeof(paciente->dataDeNascimento));
+	entradaUsuario(paciente.dataDeNascimento, sizeof(paciente.dataDeNascimento));
 
 	printf("Informe o sexo do paciente (M/F): ");
-	entradaUsuario(&paciente->sexo, sizeof(paciente->sexo));
+	entradaUsuario(&paciente.sexo, sizeof(paciente.sexo));
 
 	printf("Informe o CPF do paciente (apenas numeros): ");
-	entradaUsuario(paciente->CPF, sizeof(paciente->CPF));
+	entradaUsuario(paciente.CPF, sizeof(paciente.CPF));
 
 	printf("Informe o peso do paciente: ");
-    entradaUsuario(paciente->peso, sizeof(paciente->peso));
+    entradaUsuario(paciente.peso, sizeof(paciente.peso));
 
 	printf("Informe a altura do paciente (em centimetros): ");
-	entradaUsuario(paciente->altura, sizeof(paciente->altura));
+	entradaUsuario(paciente.altura, sizeof(paciente.altura));
 
-    free(tmp);
 	return paciente;
 
 }
@@ -141,11 +133,11 @@ PACIENTE* cadastrarPaciente(){
 void toString(PACIENTE *paciente){
 
     printf("\nNome do paciente: %s", paciente->nome);
-    printf("Data de nascimento: %s", paciente->dataDeNascimento);
-    printf("Sexo do paciente (M/F): %c", paciente->sexo);
-    printf("CPF do paciente: %s", paciente->CPF);
-    printf("Peso do paciente: %s", paciente->peso);
-    printf("\nAltura do paciente: %s", paciente->altura);
+    printf("\nData de nascimento: %s", paciente->dataDeNascimento);
+    printf("\nSexo do paciente (M/F): %c", paciente->sexo);
+    printf("\nCPF do paciente: %s", paciente->CPF);
+    printf("\nPeso do paciente: %s", paciente->peso);
+    printf("\nAltura do paciente: %s\n", paciente->altura);
 
 }
 
@@ -191,14 +183,15 @@ int painel(){
 int main (void)
 {
 	char opcao = -1;
-
-	while(opcao != 0){
+    LISTAPACIENTES *lista = inicializarLista();
+	while(opcao != '0'){
 
 		opcao = painel();
 		switch (opcao)
 		{
-		case '1':cadastrarPaciente();
+		case '1':
             // Inserir paciente
+            inserirPacienteListaOrdenada(lista, cadastrarPaciente());
 			break;
 		case '2':
 			// Pesquisar paciente
@@ -208,6 +201,7 @@ int main (void)
 			break;
 		case '4':
 			// Listar pacientes
+            listarPacientes(lista);
 			break;
         case '5':
             // Excluir paciente
