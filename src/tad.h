@@ -9,8 +9,6 @@ typedef enum boolean {
 
 typedef struct paciente {
 	char nome[64];
-	int chave; // apenas para funcionar no código da lista (por enquanto)
-	int dado;  // idem
 	char dataDeNascimento[11];
 	char sexo;
 	char CPF[15]; // Considerando o pior caso: "XXX.XXX.XXX-XX"
@@ -18,9 +16,8 @@ typedef struct paciente {
 	char altura[5];
 
 	// Endereço
-	char rua[64];
-	char bairro[64];
-	char cidade[64];
+	char endereco[128];
+	char cidade[32];
 	char estado[3];
 
 	// Contato
@@ -54,7 +51,7 @@ void exibirListaPacientes(LISTAPACIENTES *lst);
 
 PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst);
 
-PACIENTE *buscaSequencial(LISTAPACIENTES *lst, int ch);
+PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char cpf[]);
 
 void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente);
 
@@ -62,7 +59,7 @@ boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente);
 
 void reinicializarLista(LISTAPACIENTES *lst);
 
-boolean excluirPacienteLista(LISTAPACIENTES *lst, int d);
+boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[]);
 
 void excluirLista(LISTAPACIENTES **lst);
 

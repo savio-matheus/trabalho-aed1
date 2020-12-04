@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "tad.h"
 
@@ -24,8 +25,10 @@ size_t tamanho(LISTAPACIENTES *lst)
 {
 	return lst->n;
 }
+
 /* Para exibir a lista de pacientes: aqui por enquanto a chave, o dado e o
 nome do paciente */
+/*
 void exibirListaPacientes(LISTAPACIENTES *lst)
 {
 	PONT end = lst->inicio;
@@ -35,6 +38,7 @@ void exibirListaPacientes(LISTAPACIENTES *lst)
 		end = end->prox;
 	}
 }
+*/
 
 /*
  * Desde que mantida a mesma lista de pacientes, a função retorna o próximo
@@ -57,12 +61,12 @@ PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst)
 	return &atual->p;
 }
 
-PACIENTE *buscaSequencial(LISTAPACIENTES *lst, int ch)
+PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char cpf[])
 {
 	PONT pos = lst->inicio;
 	while (pos != NULL)
 	{
-		if (pos->p.chave == ch)
+		if (strcmp(cpf, pos->p.CPF) == 0)
 			return &(pos->p);
 		pos = pos->prox;
 	}
@@ -75,16 +79,16 @@ PACIENTE *buscaSequencial(LISTAPACIENTES *lst, int ch)
 *  precisa implementar um retorno informando que aquela chave (ou paciente)
 *  ja esta cadastrado.
 */
-static PONT buscaSequencialExc(LISTAPACIENTES *lst, int d, PONT *ant)
+static PONT buscaSequencialExc(LISTAPACIENTES *lst, char cpf[], PONT *ant)
 {
 	*ant = NULL;
 	PONT atual = lst->inicio;
-	while ((atual != NULL) && (atual->p.dado < d))
+	while ((atual != NULL) && (strcmp(atual->p.CPF, cpf) < 0))
 	{
 		*ant = atual;
 		atual = atual->prox;
 	}
-	if ((atual != NULL) && (atual->p.dado == d))
+	if ((atual != NULL) && (strcmp(atual->p.CPF, cpf) == 0))
 		return atual;
 	return NULL;
 }
@@ -95,13 +99,11 @@ static PONT buscaSequencialExc(LISTAPACIENTES *lst, int d, PONT *ant)
 */
 boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente)
 {
-	//int ch = paciente.chave; (não utilizada)
-	int d = paciente.dado;
 	PONT ant, i;
-	i = buscaSequencialExc(lst, d, &ant);
+	i = buscaSequencialExc(lst, paciente.CPF, &ant);
 	if (i != NULL)
 		return false;
-	i = (PONT)malloc(sizeof(REGISTRO));
+	i = (PONT)calloc(1, sizeof(REGISTRO));
 	i->p = paciente;
 	//memcpy(&i->p, &paciente, sizeof(paciente));
 	if (ant == NULL)
@@ -135,10 +137,10 @@ void reinicializarLista(LISTAPACIENTES *lst)
 /* exclui um paciente da lista e libera memoria
 * primeiro procura na lista se o paciente existe
 */
-boolean excluirPacienteLista(LISTAPACIENTES *lst, int d)
+boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[])
 {
 	PONT ant, i;
-	i = buscaSequencialExc(lst, d, &ant);
+	i = buscaSequencialExc(lst, cpf, &ant);
 	if (i == NULL)
 		return false;
 	if (ant == NULL)
