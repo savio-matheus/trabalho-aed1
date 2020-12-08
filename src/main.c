@@ -1,10 +1,11 @@
 /*
 Projeto de Algoritmos e Estruturas de Dados I - 2020/1 (SI)
 Professor: Edmundo Sérgio Spoto
-Alunos: Cláudio da Silva Pinheiro Júnior
-        Delvo Resende
-        Gleidimar Luiz
-        Sávio Matheus de Sousa
+Alunos:
+	Cláudio da Silva Pinheiro Júnior
+	Delvo Resende
+	Gleidimar Luiz
+	Sávio Matheus de Sousa
 */
 
 #include <stdio.h>
@@ -20,9 +21,9 @@ Alunos: Cláudio da Silva Pinheiro Júnior
 void limparTela(void)
 {
  #if defined (__MINGW32__) || defined(_MSC_VER) // Windows
-    system("cls");
+	system("cls");
  #else // Linux e Unix em geral
-    system("clear");
+	system("clear");
  #endif
 }
 
@@ -37,7 +38,7 @@ char *entradaUsuario(char *dest, size_t tamanho_str)
 	const float FATOR_AUMENTO = 1.5;
 	int c;
 
-    // Buffer que cresce indefinidamente até a quebra de linha.
+	// Buffer que cresce indefinidamente até a quebra de linha.
 	char *buf = malloc(sizeof(char) * 2);
 	size_t buf_usado = 0;
 	size_t buf_tamanho = 2;
@@ -63,54 +64,54 @@ char *entradaUsuario(char *dest, size_t tamanho_str)
 	}
 	
 	free(buf);
-    return dest;
+	return dest;
 }
 
 //Valida dados informados antes de efetivar o cadastro do paciente.
 int validaPaciente(PACIENTE *paciente){
 
 
-    //CPF
-        int i;
-        //Validando se apenas numeros foram digitados
-        // número mágico: 11. Indica o compr. do campo CPF
-        for(i = 0; i<=11; i++){
-            if(!isdigit(paciente->CPF[i])){
-                return 1;
-            }
-        }
+	//CPF
+	int i;
+	//Validando se apenas numeros foram digitados
+	// número mágico: 11. Indica o compr. do campo CPF
+	for(i = 0; i<=11; i++){
+		if(!isdigit(paciente->CPF[i])){
+			return 1;
+		}
+	}
 
-    //Sexo
-        if(paciente->sexo != 'M' && paciente->sexo != 'F'){
-            return 2;
-        }
+	//Sexo
+	if(paciente->sexo != 'M' && paciente->sexo != 'F'){
+		return 2;
+	}
 
-    //Data de nascimento
-    int dataNascInt[3];
-    if ( sscanf(paciente->dataDeNascimento, "%d/%d/%d", &dataNascInt[0], &dataNascInt[1], &dataNascInt[2]) == 3 ){
-    
-     if ( (dataNascInt[0] > 0 && dataNascInt[0] < 32) && (dataNascInt[1] > 0 && dataNascInt[1] < 13) && (dataNascInt[2] > 1900 && dataNascInt[2] < 2100 ) ){
-        
-     } else {
-        return 3;
-    }
-} else {
-    return 3;
-}
+	//Data de nascimento
+	int dataNascInt[3];
+	if ( sscanf(paciente->dataDeNascimento, "%d/%d/%d", &dataNascInt[0], &dataNascInt[1], &dataNascInt[2]) == 3 ){
+	
+	if ( (dataNascInt[0] > 0 && dataNascInt[0] < 32) && (dataNascInt[1] > 0 && dataNascInt[1] < 13) && (dataNascInt[2] > 1900 && dataNascInt[2] < 2100 ) ){
+		
+	} else {
+		return 3;
+	}
+	} else {
+		return 3;
+	}
 
-    //sucesso
-    return 0;
+		//sucesso
+		return 0;
 }
 
 // cadastrarPaciente cria um Paciente e o retorna
 PACIENTE cadastrarPaciente(){
 
-    PACIENTE paciente;
+	PACIENTE paciente;
 
 	printf("\nInforme o nome do paciente: ");
-    entradaUsuario(paciente.nome, sizeof(paciente.nome));
+	entradaUsuario(paciente.nome, sizeof(paciente.nome));
 
-    printf("Informe a data de nascimento (formato dd/mm/yyyy): ");
+	printf("Informe a data de nascimento (formato dd/mm/yyyy): ");
 	entradaUsuario(paciente.dataDeNascimento, sizeof(paciente.dataDeNascimento));
 
 	printf("Informe o sexo do paciente (M/F): ");
@@ -120,7 +121,7 @@ PACIENTE cadastrarPaciente(){
 	entradaUsuario(paciente.CPF, sizeof(paciente.CPF));
 
 	printf("Informe o peso do paciente: ");
-    entradaUsuario(paciente.peso, sizeof(paciente.peso));
+	entradaUsuario(paciente.peso, sizeof(paciente.peso));
 
 	printf("Informe a altura do paciente (em centimetros): ");
 	entradaUsuario(paciente.altura, sizeof(paciente.altura));
@@ -132,12 +133,12 @@ PACIENTE cadastrarPaciente(){
 // toString recebe uma struct Paciente e a imprime 
 void toString(PACIENTE *paciente){
 
-    printf("\nNome do paciente: %s", paciente->nome);
-    printf("\nData de nascimento: %s", paciente->dataDeNascimento);
-    printf("\nSexo do paciente (M/F): %c", paciente->sexo);
-    printf("\nCPF do paciente: %s", paciente->CPF);
-    printf("\nPeso do paciente: %s", paciente->peso);
-    printf("\nAltura do paciente: %s\n", paciente->altura);
+	printf("\nNome do paciente: %s", paciente->nome);
+	printf("\nData de nascimento: %s", paciente->dataDeNascimento);
+	printf("\nSexo do paciente (M/F): %c", paciente->sexo);
+	printf("\nCPF do paciente: %s", paciente->CPF);
+	printf("\nPeso do paciente: %s", paciente->peso);
+	printf("\nAltura do paciente: %s\n", paciente->altura);
 
 }
 
@@ -146,11 +147,11 @@ void editarPaciente()
 
 void listarPacientes(LISTAPACIENTES *lista)
 {
-    PACIENTE *temp;
+	PACIENTE *temp;
 
-    while (temp = retornaProximoPaciente(lista), temp != NULL) {
-        toString(temp);
-    }
+	while (temp = retornaProximoPaciente(lista), temp != NULL) {
+		toString(temp);
+	}
 }
 
 void removerPaciente()
@@ -163,35 +164,35 @@ void salvarArquivo()
 {}
 
 int painel(){
-    char opcao;
-    printf("*******************************************\n");
-    printf("** 1 - Cadastrar paciente                **\n");
-    printf("** 2 - Pesquisar paciente                **\n");
-    printf("** 3 - Atualizar paciente                **\n");
-    printf("** 4 - Listar pacientes                  **\n");
-    printf("** 5 - Excluir paciente                  **\n");
-    printf("** 0 - SAIR                              **\n");
-    printf("*******************************************\n");
+	char opcao;
+	printf("*******************************************\n");
+	printf("** 1 - Cadastrar paciente                **\n");
+	printf("** 2 - Pesquisar paciente                **\n");
+	printf("** 3 - Atualizar paciente                **\n");
+	printf("** 4 - Listar pacientes                  **\n");
+	printf("** 5 - Excluir paciente                  **\n");
+	printf("** 0 - SAIR                              **\n");
+	printf("*******************************************\n");
 
-    printf("ESCOLHA: ");
+	printf("ESCOLHA: ");
 
-    entradaUsuario(&opcao, 1);
-    return opcao;
+	entradaUsuario(&opcao, 1);
+	return opcao;
 }
 
 
 int main (void)
 {
 	char opcao = -1;
-    LISTAPACIENTES *lista = inicializarLista();
+	LISTAPACIENTES *lista = inicializarLista();
 	while(opcao != '0'){
 
 		opcao = painel();
 		switch (opcao)
 		{
 		case '1':
-            // Inserir paciente
-            inserirPacienteListaOrdenada(lista, cadastrarPaciente());
+			// Inserir paciente
+			inserirPacienteListaOrdenada(lista, cadastrarPaciente());
 			break;
 		case '2':
 			// Pesquisar paciente
@@ -201,11 +202,11 @@ int main (void)
 			break;
 		case '4':
 			// Listar pacientes
-            listarPacientes(lista);
+			listarPacientes(lista);
 			break;
-        case '5':
-            // Excluir paciente
-            break;
+		case '5':
+			// Excluir paciente
+			break;
 		}
 
 	}
