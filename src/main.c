@@ -157,11 +157,59 @@ void listarPacientes(LISTAPACIENTES *lista)
 void removerPaciente()
 {}
 
-void carregarArquivo()
-{}
+void carregarArquivo(LISTAPACIENTES *lista)
+{
+	PACIENTE *temp;
+	FILE *fp;
+	size_t tamanho_arquivo;
 
-void salvarArquivo()
-{}
+	temp = malloc(sizeof(PACIENTE));
+	fp = fopen("registros.dat", "rb");
+	if (fp == NULL)
+		return;
+
+	fread(&tamanho_arquivo, sizeof(size_t), 1, fp);
+
+	if (tamanho_arquivo == 0) {
+		goto end;
+	}
+
+	while (1 == fread(temp, sizeof(PACIENTE), 1, fp)) {
+		inserirPaciente(lista, temp);
+	}
+
+	end:
+	fclose(fp);
+	free(temp);
+}
+
+void salvarArquivo(LISTAPACIENTES *lista)
+{
+	PACIENTE *temp;
+	FILE *fp;
+	size_t tamanho_arquivo;
+
+	fp = fopen("registros.dat", "w+b");
+	tamanho_arquivo = sizeof(PACIENTE) * tamanho(lista);
+
+	if (fp == NULL) {
+		fprintf(stderr, "Ocorreu um erro ao salvar o arquivo\n");
+		exit(1);
+	}
+
+	fwrite(&tamanho_arquivo, sizeof(size_t), 1, fp);
+
+	if (tamanho_arquivo == 0) {
+		goto end;
+	}
+
+	while (temp = retornaProximoPaciente(lista), temp != NULL) {
+		fwrite(temp, sizeof(PACIENTE), 1, fp);
+	}
+
+	end:
+	fclose(fp);
+}
 
 int painel(){
 	char opcao;
@@ -185,6 +233,8 @@ int main (void)
 {
 	char opcao = -1;
 	LISTAPACIENTES *lista = inicializarLista();
+	carregarArquivo(lista);
+
 	while(opcao != '0'){
 
 		opcao = painel();
@@ -211,6 +261,7 @@ int main (void)
 
 	}
 
+	salvarArquivo(lista);
 
 	return 0;
 }
