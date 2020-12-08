@@ -53,7 +53,7 @@ PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst);
 
 PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char cpf[]);
 
-void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente);
+void inserirPaciente(LISTAPACIENTES *lst, PACIENTE *paciente);
 
 boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente);
 

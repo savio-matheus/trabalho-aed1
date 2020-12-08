@@ -171,7 +171,7 @@ void excluirLista(LISTAPACIENTES **lst)
 * Insere novo paciente ao final da lista (deve estar inicializada),
 * sem checar por dados repetidos.
 */
-void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente)
+void inserirPaciente(LISTAPACIENTES *lst, PACIENTE *paciente)
 {
 	PONT temp = NULL;
 
@@ -179,7 +179,7 @@ void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente)
 	{
 		lst->inicio = (PONT) malloc(sizeof(REGISTRO));
 		lst->inicio->prox = NULL;
-		lst->inicio->p = paciente;
+		lst->inicio->p = *paciente;
 		lst->n++;
 		return;
 	}
@@ -190,7 +190,7 @@ void inserirPaciente(LISTAPACIENTES *lst, PACIENTE paciente)
 
 	temp->prox = (PONT) malloc(sizeof(REGISTRO));
 	temp = temp->prox;
-	temp->p = paciente;
+	temp->p = *paciente;
 	temp->prox = NULL;
 	lst->n++;
 	return;
