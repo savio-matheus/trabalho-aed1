@@ -14,8 +14,8 @@
 
 - TADs
   - [ ] Fila
-  - [ ] Lista
+  - [X] Lista
 
 - Arquivo em disco
-  - [ ] Operação de salvar
-  - [ ] Operação de abrir
+  - [X] Operação de salvar
+  - [X] Operação de abrir
