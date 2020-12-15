@@ -103,8 +103,8 @@ int validaPaciente(PACIENTE *paciente){
 		return 0;
 }
 
-// cadastrarPaciente cria um Paciente e o retorna
-PACIENTE cadastrarPaciente(){
+// formularioPaciente cria um Paciente e o retorna
+PACIENTE formularioPaciente(){
 
 	PACIENTE paciente;
 
@@ -242,7 +242,7 @@ int main (void)
 		{
 		case '1':
 			// Inserir paciente
-			inserirPacienteListaOrdenada(lista, cadastrarPaciente());
+			inserirPacienteListaOrdenada(lista, formularioPaciente());
 			break;
 		case '2':
 			// Pesquisar paciente
