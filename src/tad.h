@@ -2,6 +2,12 @@
 #define TAD_H
 
 // Typedefs da lista
+
+enum chaves {
+	CPF = 0, NOME, DATA_NASC, SEXO, PESO,
+	ALTURA, ENDERECO, CIDADE, ESTADO
+};
+
 typedef enum boolean {
 	false = 0,
 	true = 1
@@ -51,7 +57,7 @@ void exibirListaPacientes(LISTAPACIENTES *lst);
 
 PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst);
 
-PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char cpf[]);
+PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char s[], enum chaves chave);
 
 void inserirPaciente(LISTAPACIENTES *lst, PACIENTE *paciente);
 

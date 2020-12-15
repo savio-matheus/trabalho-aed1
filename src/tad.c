@@ -61,12 +61,43 @@ PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst)
 	return &atual->p;
 }
 
-PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char cpf[])
+/*
+ * Compara a string s com o campo em p determinado pela chave.
+ * É uma forma de tornar a ordenação mais flexível, mas deve ter um jeito
+ * melhor de fazer isso.
+ */
+static int compara(PACIENTE *p, char *s, enum chaves chave)
+{
+	switch (chave) {
+		case CPF:
+			return strcmp(p->CPF, s);
+		case NOME:
+			return strcmp(p->nome, s);
+		/*case DATA_NASC:
+			return strcmp(p->dataDeNascimento, s);
+		case SEXO:
+			return strcmp(p->sexo, s);
+		case PESO:
+			return strcmp(p->peso, s);
+		case ALTURA:
+			return strcmp(p->altura, s);
+		case ENDERECO:
+			return strcmp(p->endereco, s);
+		case CIDADE:
+			return strcmp(p->cidade, s);
+		case ESTADO:
+			return strcmp(p->estado, s);*/
+		default:
+			return strcmp(p->CPF, s);
+	}
+}
+
+PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char s[], enum chaves chave)
 {
 	PONT pos = lst->inicio;
 	while (pos != NULL)
 	{
-		if (strcmp(cpf, pos->p.CPF) == 0)
+		if (compara(&pos->p, s, chave) == 0)
 			return &(pos->p);
 		pos = pos->prox;
 	}
@@ -79,16 +110,17 @@ PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char cpf[])
 *  precisa implementar um retorno informando que aquela chave (ou paciente)
 *  ja esta cadastrado.
 */
-static PONT buscaSequencialExc(LISTAPACIENTES *lst, char cpf[], PONT *ant)
+static PONT buscaSequencialExc(LISTAPACIENTES *lst, char s[],
+	PONT *ant, enum chaves ch)
 {
 	*ant = NULL;
 	PONT atual = lst->inicio;
-	while ((atual != NULL) && (strcmp(atual->p.CPF, cpf) < 0))
+	while ((atual != NULL) && (compara(&atual->p, s, ch) < 0))
 	{
 		*ant = atual;
 		atual = atual->prox;
 	}
-	if ((atual != NULL) && (strcmp(atual->p.CPF, cpf) == 0))
+	if ((atual != NULL) && (compara(&atual->p, s, ch) == 0))
 		return atual;
 	return NULL;
 }
@@ -100,7 +132,7 @@ static PONT buscaSequencialExc(LISTAPACIENTES *lst, char cpf[], PONT *ant)
 boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente)
 {
 	PONT ant, i;
-	i = buscaSequencialExc(lst, paciente.CPF, &ant);
+	i = buscaSequencialExc(lst, paciente.nome, &ant, NOME);
 	if (i != NULL)
 		return false;
 	i = (PONT)calloc(1, sizeof(REGISTRO));
@@ -140,7 +172,7 @@ void reinicializarLista(LISTAPACIENTES *lst)
 boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[])
 {
 	PONT ant, i;
-	i = buscaSequencialExc(lst, cpf, &ant);
+	i = buscaSequencialExc(lst, cpf, &ant, CPF);
 	if (i == NULL)
 		return false;
 	if (ant == NULL)
