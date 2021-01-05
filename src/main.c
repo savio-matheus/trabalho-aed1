@@ -126,6 +126,24 @@ PACIENTE formularioPaciente(){
 	printf("Informe a altura do paciente (em centimetros): ");
 	entradaUsuario(paciente.altura, sizeof(paciente.altura));
 
+	int validacaoResult = validaPaciente(paciente);
+
+	do{
+		if(validacaoResult == 1){
+			printf("CPF Invalido! \nInforme novamente o CPF do paciente (apenas numeros): ");
+			entradaUsuario(paciente.CPF, sizeof(paciente.CPF));
+		}else if(validacaoResult == 2){
+			printf("Informacao invalida! \nInforme o sexo do paciente (M/F): ");
+			entradaUsuario(&paciente.sexo, sizeof(paciente.sexo));
+		}else if(validacaoResult == 3){
+			printf("Data de Nascimento invalida! \nInforme a data de nascimento (formato dd/mm/yyyy): ");
+			entradaUsuario(paciente.dataDeNascimento, sizeof(paciente.dataDeNascimento));
+		}
+
+		validacaoResult = validaPaciente(paciente);
+		
+	}while(validacaoResult > 0);
+
 	return paciente;
 
 }
