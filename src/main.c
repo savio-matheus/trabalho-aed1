@@ -75,8 +75,8 @@ int validaPaciente(PACIENTE paciente){
 	int i;
 	//Validando se apenas numeros foram digitados
 	// número mágico: 11. Indica o compr. do campo CPF
-	for(i = 0; i<=11; i++){
-		if(!isdigit(paciente.CPF[i]-0)){
+	for(i = 0; i<11; i++){
+		if(!isdigit(paciente.CPF[i])){
 			return 1;
 		}
 	}
