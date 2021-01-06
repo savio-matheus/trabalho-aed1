@@ -68,7 +68,7 @@ char *entradaUsuario(char *dest, size_t tamanho_str)
 }
 
 //Valida dados informados antes de efetivar o cadastro do paciente.
-int validaPaciente(PACIENTE *paciente){
+int validaPaciente(PACIENTE paciente){
 
 
 	//CPF
@@ -76,19 +76,19 @@ int validaPaciente(PACIENTE *paciente){
 	//Validando se apenas numeros foram digitados
 	// número mágico: 11. Indica o compr. do campo CPF
 	for(i = 0; i<=11; i++){
-		if(!isdigit(paciente->CPF[i])){
+		if(!isdigit(paciente.CPF[i]-0)){
 			return 1;
 		}
 	}
 
 	//Sexo
-	if(paciente->sexo != 'M' && paciente->sexo != 'F'){
+	if(paciente.sexo != 'M' && paciente.sexo != 'F'){
 		return 2;
 	}
 
 	//Data de nascimento
 	int dataNascInt[3];
-	if ( sscanf(paciente->dataDeNascimento, "%d/%d/%d", &dataNascInt[0], &dataNascInt[1], &dataNascInt[2]) == 3 ){
+	if ( sscanf(paciente.dataDeNascimento, "%d/%d/%d", &dataNascInt[0], &dataNascInt[1], &dataNascInt[2]) == 3 ){
 	
 	if ( (dataNascInt[0] > 0 && dataNascInt[0] < 32) && (dataNascInt[1] > 0 && dataNascInt[1] < 13) && (dataNascInt[2] > 1900 && dataNascInt[2] < 2100 ) ){
 		
