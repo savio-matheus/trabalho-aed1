@@ -1,10 +1,10 @@
 # Trabalho em Grupo - AED 1
 ## Funcionalidades
 - CRUD Pacientes
-  - [ ] Cadastrar
-  - [ ] Editar
-  - [ ] Listar
-  - [ ] Remover
+  - [X] Cadastrar
+  - [X] Editar
+  - [X] Listar
+  - [X] Remover
   
 - CRUD Consultas
   - [ ] Cadastrar
