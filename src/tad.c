@@ -68,7 +68,6 @@ PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst)
  */
 static int compara(PACIENTE *p, char *s, enum chaves chave)
 {
-	printf("%s ? %s\n", p->CPF, s);
 	switch (chave) {
 		case CPF:
 			return strcmp(p->CPF, s);
