@@ -197,8 +197,25 @@ void listarPacientes(LISTAPACIENTES *lista)
 	}
 }
 
-void removerPaciente()
-{}
+void removerPaciente(LISTAPACIENTES *lst)
+{
+		char cpf[15];
+	boolean falhou = false;
+
+	do {
+		if (falhou) {
+			printf("O CPF digitado eh invalido ou nao esta "
+				"cadastrado.\n");
+		}
+
+		printf("CPF do paciente a ser removido [0 para cancelar]: ");
+		entradaUsuario(cpf, sizeof(cpf));
+
+		if (strcmp("0", cpf) == 0)
+			return;
+		falhou = true;
+	} while (!excluirPacienteLista(lst, cpf));
+}
 
 void carregarArquivo(LISTAPACIENTES *lista)
 {
@@ -296,6 +313,7 @@ int main (void)
 			break;
 		case '4':
 			// Excluir paciente
+			removerPaciente(lista);
 			break;
 		}
 
