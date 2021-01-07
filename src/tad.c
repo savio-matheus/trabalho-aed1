@@ -68,6 +68,7 @@ PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst)
  */
 static int compara(PACIENTE *p, char *s, enum chaves chave)
 {
+	printf("%s ? %s\n", p->CPF, s);
 	switch (chave) {
 		case CPF:
 			return strcmp(p->CPF, s);
@@ -171,8 +172,16 @@ void reinicializarLista(LISTAPACIENTES *lst)
 */
 boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[])
 {
-	PONT ant, i;
-	i = buscaSequencialExc(lst, cpf, &ant, CPF);
+	PONT ant = NULL;
+	PONT i;
+
+	i = lst->inicio;
+	while ((i != NULL) && (compara(&i->p, cpf, CPF) != 0))
+	{
+		ant = i;
+		i = i->prox;
+	}
+
 	if (i == NULL)
 		return false;
 	if (ant == NULL)
