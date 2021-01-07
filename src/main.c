@@ -160,8 +160,33 @@ void toString(PACIENTE *paciente){
 
 }
 
-void editarPaciente()
-{}
+void editarPaciente(LISTAPACIENTES *lst)
+{
+	char cpf[15];
+	boolean falhou = false;
+	PACIENTE *old = NULL;
+	PACIENTE novo;
+
+	do {
+		if (falhou) {
+			printf("O CPF digitado eh invalido ou nao esta "
+				"cadastrado.\n");
+		}
+
+		printf("CPF do paciente a ser editado [0 para cancelar]: ");
+		entradaUsuario(cpf, sizeof(cpf));
+
+		if (strcmp("0", cpf) == 0)
+			return;
+		old = buscaSequencial(lst, cpf, CPF);
+		falhou = true;
+	} while (old == NULL);
+
+	toString(old);
+	novo = formularioPaciente();
+	excluirPacienteLista(lst, old->CPF);
+	inserirPacienteListaOrdenada(lst, novo);
+}
 
 void listarPacientes(LISTAPACIENTES *lista)
 {
@@ -263,6 +288,7 @@ int main (void)
 			break;
 		case '2':
 			// Atualizar paciente
+			editarPaciente(lista);
 			break;
 		case '3':
 			// Listar pacientes
