@@ -233,10 +233,9 @@ int painel(){
 	char opcao;
 	printf("*******************************************\n");
 	printf("** 1 - Cadastrar paciente                **\n");
-	printf("** 2 - Pesquisar paciente                **\n");
-	printf("** 3 - Atualizar paciente                **\n");
-	printf("** 4 - Listar pacientes                  **\n");
-	printf("** 5 - Excluir paciente                  **\n");
+	printf("** 2 - Atualizar paciente                **\n");
+	printf("** 3 - Listar pacientes                  **\n");
+	printf("** 4 - Excluir paciente                  **\n");
 	printf("** 0 - SAIR                              **\n");
 	printf("*******************************************\n");
 
@@ -263,16 +262,13 @@ int main (void)
 			inserirPacienteListaOrdenada(lista, formularioPaciente());
 			break;
 		case '2':
-			// Pesquisar paciente
-			break;
-		case '3':
 			// Atualizar paciente
 			break;
-		case '4':
+		case '3':
 			// Listar pacientes
 			listarPacientes(lista);
 			break;
-		case '5':
+		case '4':
 			// Excluir paciente
 			break;
 		}
