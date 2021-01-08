@@ -196,14 +196,15 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[])
 *  Desaloca a memória atribuída à lista. O ponteiro para ponteiro serve
 *  para tornar possível mudar o valor da variável para NULL.
 */
-void excluirLista(LISTAPACIENTES **lst)
+void excluirLista(LISTAPACIENTES *lst)
 {
-	if (*lst == NULL) {
+	if (lst == NULL) {
+		printf("\nLista está vazia");
 		return;
 	}
-	reinicializarLista(*lst);
-	free(*lst);
-	*lst = NULL;
+	reinicializarLista(lst);
+	free(lst);
+	lst = NULL;
 	printf("Lista excluida!\n");
 }
 
