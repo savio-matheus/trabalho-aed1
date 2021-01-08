@@ -278,6 +278,7 @@ int painel(){
 	printf("** 2 - Atualizar paciente                **\n");
 	printf("** 3 - Listar pacientes                  **\n");
 	printf("** 4 - Excluir paciente                  **\n");
+	printf("** 5 - Limpar a tela                     **\n");
 	printf("** 0 - SAIR                              **\n");
 	printf("*******************************************\n");
 
@@ -315,6 +316,12 @@ int main (void)
 			// Excluir paciente
 			removerPaciente(lista);
 			break;
+		
+		case '5':
+			// Limpar a tela do terminal
+			limparTela();
+			break;
+
 		}
 
 	}
