@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <ctype.h>
 #include "tad.h"
 
 // Lista encadeada =======================================================
@@ -189,6 +189,7 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[])
 		ant->prox = i->prox;
 	free(i);
 	lst->n--;
+	printf("Paciente removido com sucesso!\n");
 	return true;
 }
 
@@ -199,7 +200,6 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[])
 void excluirLista(LISTAPACIENTES *lst)
 {
 	if (lst == NULL) {
-		printf("\nLista está vazia");
 		return;
 	}
 	reinicializarLista(lst);
@@ -212,7 +212,7 @@ void excluirLista(LISTAPACIENTES *lst)
 * Insere novo paciente ao final da lista (deve estar inicializada),
 * sem checar por dados repetidos.
 */
-void inserirPaciente(LISTAPACIENTES *lst, PACIENTE *paciente)
+ void inserirPaciente(LISTAPACIENTES *lst, PACIENTE *paciente)
 {
 	PONT temp = NULL;
 
@@ -235,7 +235,6 @@ void inserirPaciente(LISTAPACIENTES *lst, PACIENTE *paciente)
 	temp->prox = NULL;
 	lst->n++;
 	return;
-}
+} 
 
 
-// Fila encadeada ========================================================

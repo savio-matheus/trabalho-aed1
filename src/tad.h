@@ -69,6 +69,8 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[]);
 
 void excluirLista(LISTAPACIENTES *lst);
 
+
+
 // Funções da fila (baseada na lista)
 
 #endif /* TAD_H */
