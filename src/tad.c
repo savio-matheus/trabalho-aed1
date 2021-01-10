@@ -69,34 +69,33 @@ PACIENTE *retornaProximoPaciente(LISTAPACIENTES *lst)
 static int compara(PACIENTE *p, char *s, enum chaves chave)
 {
 	switch (chave) {
-		case CPF:
-			return strcmp(p->CPF, s);
-		case NOME:
-			return strcmp(p->nome, s);
-		/*case DATA_NASC:
-			return strcmp(p->dataDeNascimento, s);
-		case SEXO:
-			return strcmp(p->sexo, s);
-		case PESO:
-			return strcmp(p->peso, s);
-		case ALTURA:
-			return strcmp(p->altura, s);
-		case ENDERECO:
-			return strcmp(p->endereco, s);
-		case CIDADE:
-			return strcmp(p->cidade, s);
-		case ESTADO:
-			return strcmp(p->estado, s);*/
-		default:
-			return strcmp(p->CPF, s);
+	case CPF:
+		return strcmp(p->CPF, s);
+	case NOME:
+		return strcmp(p->nome, s);
+	/*case DATA_NASC:
+		return strcmp(p->dataDeNascimento, s);
+	case SEXO:
+		return strcmp(p->sexo, s);
+	case PESO:
+		return strcmp(p->peso, s);
+	case ALTURA:
+		return strcmp(p->altura, s);
+	case ENDERECO:
+		return strcmp(p->endereco, s);
+	case CIDADE:
+		return strcmp(p->cidade, s);
+	case ESTADO:
+		return strcmp(p->estado, s);*/
+	default:
+		return strcmp(p->CPF, s);
 	}
 }
 
 PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char s[], enum chaves chave)
 {
 	PONT pos = lst->inicio;
-	while (pos != NULL)
-	{
+	while (pos != NULL) {
 		if (compara(&pos->p, s, chave) == 0)
 			return &(pos->p);
 		pos = pos->prox;
@@ -111,12 +110,11 @@ PACIENTE *buscaSequencial(LISTAPACIENTES *lst, char s[], enum chaves chave)
 *  ja esta cadastrado.
 */
 static PONT buscaSequencialExc(LISTAPACIENTES *lst, char s[],
-	PONT *ant, enum chaves ch)
+							   PONT *ant, enum chaves ch)
 {
 	*ant = NULL;
 	PONT atual = lst->inicio;
-	while ((atual != NULL) && (compara(&atual->p, s, ch) < 0))
-	{
+	while ((atual != NULL) && (compara(&atual->p, s, ch) < 0)) {
 		*ant = atual;
 		atual = atual->prox;
 	}
@@ -138,13 +136,10 @@ boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente)
 	i = (PONT)calloc(1, sizeof(REGISTRO));
 	i->p = paciente;
 	//memcpy(&i->p, &paciente, sizeof(paciente));
-	if (ant == NULL)
-	{
+	if (ant == NULL) {
 		i->prox = lst->inicio;
 		lst->inicio = i;
-	}
-	else
-	{
+	} else {
 		i->prox = ant->prox;
 		ant->prox = i;
 	}
@@ -156,8 +151,7 @@ boolean inserirPacienteListaOrdenada(LISTAPACIENTES *lst, PACIENTE paciente)
 void reinicializarLista(LISTAPACIENTES *lst)
 {
 	PONT fim = lst->inicio;
-	while (fim != NULL)
-	{
+	while (fim != NULL) {
 		PONT apagar = fim;
 		fim = fim->prox;
 		free(apagar);
@@ -175,8 +169,7 @@ boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[])
 	PONT i;
 
 	i = lst->inicio;
-	while ((i != NULL) && (compara(&i->p, cpf, CPF) != 0))
-	{
+	while ((i != NULL) && (compara(&i->p, cpf, CPF) != 0)) {
 		ant = i;
 		i = i->prox;
 	}
@@ -212,12 +205,11 @@ void excluirLista(LISTAPACIENTES *lst)
 * Insere novo paciente ao final da lista (deve estar inicializada),
 * sem checar por dados repetidos.
 */
- void inserirPaciente(LISTAPACIENTES *lst, PACIENTE *paciente)
+void inserirPaciente(LISTAPACIENTES *lst, PACIENTE *paciente)
 {
 	PONT temp = NULL;
 
-	if (lst->inicio == NULL)
-	{
+	if (lst->inicio == NULL) {
 		lst->inicio = (PONT) malloc(sizeof(REGISTRO));
 		lst->inicio->prox = NULL;
 		lst->inicio->p = *paciente;
@@ -235,6 +227,6 @@ void excluirLista(LISTAPACIENTES *lst)
 	temp->prox = NULL;
 	lst->n++;
 	return;
-} 
+}
 
 

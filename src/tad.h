@@ -31,21 +31,18 @@ typedef struct paciente {
 	char telefone[21]; // considerando o pior caso: "+55 (XX) X XXXX-XXXX"
 } PACIENTE;
 
-typedef struct registro
-{
+typedef struct registro {
 	PACIENTE p;
 	struct registro *prox;
 } REGISTRO;
 
 typedef REGISTRO *PONT;
 
-typedef struct lst_pacientes
-{
+typedef struct lst_pacientes {
 	PONT inicio;
 	size_t n; // tamanho da lista
 } LISTAPACIENTES;
 
-// typedefs da fila
 
 // Funções da lista encadeada
 
@@ -68,9 +65,5 @@ void reinicializarLista(LISTAPACIENTES *lst);
 boolean excluirPacienteLista(LISTAPACIENTES *lst, char cpf[]);
 
 void excluirLista(LISTAPACIENTES *lst);
-
-
-
-// Funções da fila (baseada na lista)
 
 #endif /* TAD_H */

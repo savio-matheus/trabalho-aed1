@@ -20,11 +20,11 @@ Alunos:
  */
 void limparTela(void)
 {
- #if defined (__MINGW32__) || defined(_MSC_VER) // Windows
+#if defined (__MINGW32__) || defined(_MSC_VER) // Windows (CMD)
 	system("cls");
- #else // Linux e Unix em geral
+#else // Linux e Unix em geral
 	system("clear");
- #endif
+#endif
 }
 
 /*
@@ -42,7 +42,7 @@ char *entradaUsuario(char *dest, size_t tamanho_str)
 	char *buf = malloc(sizeof(char) * 2);
 	size_t buf_usado = 0;
 	size_t buf_tamanho = 2;
-	
+
 	do {
 		c = getchar();
 		if (buf_usado + 1 >= buf_tamanho) {
@@ -62,49 +62,51 @@ char *entradaUsuario(char *dest, size_t tamanho_str)
 		buf[tamanho_str - 1] = '\0';
 		strncpy(dest, buf, tamanho_str);
 	}
-	
+
 	free(buf);
 	return dest;
 }
 
 //Valida dados informados antes de efetivar o cadastro do paciente.
-int validaPaciente(PACIENTE paciente){
+int validaPaciente(PACIENTE paciente)
+{
 
 
 	//CPF
 	int i;
 	//Validando se apenas numeros foram digitados
 	// número mágico: 11. Indica o compr. do campo CPF
-	for(i = 0; i<11; i++){
-		if(!isdigit(paciente.CPF[i])){
+	for(i = 0; i < 11; i++) {
+		if(!isdigit(paciente.CPF[i])) {
 			return 1;
 		}
 	}
 
 	//Sexo
-	if(paciente.sexo != 'M' && paciente.sexo != 'F'){
+	if(paciente.sexo != 'M' && paciente.sexo != 'F') {
 		return 2;
 	}
 
 	//Data de nascimento
 	int dataNascInt[3];
-	if ( sscanf(paciente.dataDeNascimento, "%d/%d/%d", &dataNascInt[0], &dataNascInt[1], &dataNascInt[2]) == 3 ){
-	
-	if ( (dataNascInt[0] > 0 && dataNascInt[0] < 32) && (dataNascInt[1] > 0 && dataNascInt[1] < 13) && (dataNascInt[2] > 1900 && dataNascInt[2] < 2100 ) ){
-		
-	} else {
-		return 3;
-	}
+	if ( sscanf(paciente.dataDeNascimento, "%d/%d/%d", &dataNascInt[0], &dataNascInt[1], &dataNascInt[2]) == 3 ) {
+
+		if ( (dataNascInt[0] > 0 && dataNascInt[0] < 32) && (dataNascInt[1] > 0 && dataNascInt[1] < 13) && (dataNascInt[2] > 1900 && dataNascInt[2] < 2100 ) ) {
+
+		} else {
+			return 3;
+		}
 	} else {
 		return 3;
 	}
 
-		//sucesso
-		return 0;
+	//sucesso
+	return 0;
 }
 
 // formularioPaciente cria um Paciente e o retorna
-PACIENTE formularioPaciente(){
+PACIENTE formularioPaciente()
+{
 
 	PACIENTE paciente;
 
@@ -128,28 +130,29 @@ PACIENTE formularioPaciente(){
 
 	int validacaoResult = validaPaciente(paciente);
 
-	do{
-		if(validacaoResult == 1){
+	do {
+		if(validacaoResult == 1) {
 			printf("CPF Invalido! \nInforme novamente o CPF do paciente (apenas numeros): ");
 			entradaUsuario(paciente.CPF, sizeof(paciente.CPF));
-		}else if(validacaoResult == 2){
+		} else if(validacaoResult == 2) {
 			printf("Informacao invalida! \nInforme o sexo do paciente (M/F): ");
 			entradaUsuario(&paciente.sexo, sizeof(paciente.sexo));
-		}else if(validacaoResult == 3){
+		} else if(validacaoResult == 3) {
 			printf("Data de Nascimento invalida! \nInforme a data de nascimento (formato dd/mm/yyyy): ");
 			entradaUsuario(paciente.dataDeNascimento, sizeof(paciente.dataDeNascimento));
 		}
 
 		validacaoResult = validaPaciente(paciente);
-		
-	}while(validacaoResult > 0);
+
+	} while(validacaoResult > 0);
 
 	return paciente;
 
 }
 
-// toString recebe uma struct Paciente e a imprime 
-void toString(PACIENTE *paciente){
+// toString recebe uma struct Paciente e a imprime
+void toString(PACIENTE *paciente)
+{
 
 	printf("\nNome do paciente: %s", paciente->nome);
 	printf("\nData de nascimento: %s", paciente->dataDeNascimento);
@@ -170,7 +173,7 @@ void editarPaciente(LISTAPACIENTES *lst)
 	do {
 		if (falhou) {
 			printf("O CPF digitado eh invalido ou nao esta "
-				"cadastrado.\n");
+				   "cadastrado.\n");
 		}
 
 		printf("CPF do paciente a ser editado [0 para cancelar]: ");
@@ -199,13 +202,13 @@ void listarPacientes(LISTAPACIENTES *lista)
 
 void removerPaciente(LISTAPACIENTES *lst)
 {
-		char cpf[15];
+	char cpf[15];
 	boolean falhou = false;
 
 	do {
 		if (falhou) {
 			printf("O CPF digitado eh invalido ou nao esta "
-				"cadastrado.\n");
+				   "cadastrado.\n");
 		}
 
 		printf("CPF do paciente a ser removido [0 para cancelar]: ");
@@ -238,7 +241,7 @@ void carregarArquivo(LISTAPACIENTES *lista)
 		inserirPaciente(lista, temp);
 	}
 
-	end:
+end:
 	fclose(fp);
 	free(temp);
 }
@@ -267,11 +270,12 @@ void salvarArquivo(LISTAPACIENTES *lista)
 		fwrite(temp, sizeof(PACIENTE), 1, fp);
 	}
 
-	end:
+end:
 	fclose(fp);
 }
 
-int painel(){
+int painel()
+{
 	char opcao;
 	printf("*******************************************\n");
 	printf("** 1 - Cadastrar paciente                **\n");
@@ -295,11 +299,10 @@ int main (void)
 	LISTAPACIENTES *lista = inicializarLista();
 	carregarArquivo(lista);
 
-	while(opcao != '0'){
+	while(opcao != '0') {
 
 		opcao = painel();
-		switch (opcao)
-		{
+		switch (opcao) {
 		case '1':
 			// Inserir paciente
 			inserirPacienteListaOrdenada(lista, formularioPaciente());
@@ -316,7 +319,7 @@ int main (void)
 			// Excluir paciente
 			removerPaciente(lista);
 			break;
-		
+
 		case '5':
 			// Limpar a tela do terminal
 			limparTela();
